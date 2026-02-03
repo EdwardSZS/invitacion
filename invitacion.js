@@ -1,8 +1,11 @@
 /* =========================
    CONFIGURA AQUÍ
 ========================= */
-const RSVP_ENDPOINT = "https://docs.google.com/spreadsheets/d/1CSSFSz8b-A2fUXY3wJH5u8YJQ3JF_t-9LOa2bRawVsE/edit?gid=0#gid=0"; // .../exec
+const RSVP_ENDPOINT = "https://docs.google.com/spreadsheets/d/1CSSFSz8b-A2fUXY3wJH5u8YJQ3JF_t-9LOa2bRawVsE/edit?gid=0#gid=0/exec"; // .../exec
 const MAPS_URL = "https://www.google.com/maps/dir/?api=1&destination=Hotel+Santa+Barbara+Puente+Nacional+Santander";
+const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSe5VAzH_yyNsF51FdPsryz-qVxZHWcQFKEHL8rEtyoPLndb5g/viewform";
+const ENTRY_NOMBRE = "entry..877086558"; // <-- aquí pegamos el real
+
 
 /* Datos editables (si quieres cambiarlos rápido) */
 const EVENTO = {
@@ -116,18 +119,36 @@ function main(){
 
   // personalización por URL
   const invitado = parseNombreInvitado();
-  if(invitado){
-    setText("topLine", "HOLA " + invitado.toUpperCase() + ", TE INVITO A MIS");
-    const mh = $("modalHola");
-    if(mh) mh.textContent = `Hola ${invitado}, ¿asistirás a la celebración?`;
-  }
+ if(invitado){
+  if(topLine) topLine.textContent = `HOLA ${invitado.toUpperCase()}, TE INVITO A MIS`;
+  if(modalHola) modalHola.textContent = `Hola ${invitado}, ¿asistirás a la celebración?`;
+}else{
+  if(topLine) topLine.textContent = "TE INVITO A MIS";
+  if(modalHola) modalHola.textContent = "Hola, ¿asistirás a la celebración?";
+}
+const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSe5VAzH_yyNsF51FdPsryz-qVxZHWcQFKEHL8rEtyoPLndb5g/viewform";
+const ENTRY_NOMBRE = "entry.987654321"; // <-- aquí pegamos el real
+const ENTRY_ASISTE = "entry.987654321";
+
+url.searchParams.set(ENTRY_ASISTE, "Sí");
+
+function abrirFormulario(nombre){
+  const url = new URL(FORM_URL);
+  if(nombre) url.searchParams.set(ENTRY_NOMBRE, nombre);
+  window.location.href = url.toString(); // funciona mejor en WhatsApp que window.open
+}
 
   // events
   const btnMapa = $("btnMapa");
-  if(btnMapa) btnMapa.addEventListener("click", () => window.open(MAPS_URL, "_blank"));
+  if(btnMapa) btnMapa.addEventListener("click", () => window.location.href = MAPS_URL;
 
-  const btnConfirmar = $("btnConfirmar");
-  if(btnConfirmar) btnConfirmar.addEventListener("click", openModal);
+  //const btnConfirmar = $("btnConfirmar");
+  //if(btnConfirmar) btnConfirmar.addEventListener("click", openModal);
+  document.getElementById("btnConfirmar").addEventListener("click", () => {
+  const p = new URLSearchParams(location.search);
+  const nombre = (p.get("nombre") || "").trim();
+  abrirFormulario(nombre);
+});
 
   const cerrar = $("cerrar");
   if(cerrar) cerrar.addEventListener("click", closeModal);
