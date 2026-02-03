@@ -107,7 +107,8 @@ function main(){
 
   // saludo personalizado
   const invitado = parseNombreInvitado();
-  const topLine = $("topLine");
+  //const topLine = $("topLine");
+  const topLine = document.getElementById("topLine");
   const modalHola = $("modalHola");
 
   if(invitado){
