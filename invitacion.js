@@ -1,13 +1,20 @@
 /* =========================
    CONFIGURA AQUÍ
 ========================= */
-const RSVP_ENDPOINT = "https://docs.google.com/spreadsheets/d/1CSSFSz8b-A2fUXY3wJH5u8YJQ3JF_t-9LOa2bRawVsE/edit?gid=0#gid=0/exec"; // .../exec
-const MAPS_URL = "https://www.google.com/maps/dir/?api=1&destination=Hotel+Santa+Barbara+Puente+Nacional+Santander";
-const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSe5VAzH_yyNsF51FdPsryz-qVxZHWcQFKEHL8rEtyoPLndb5g/viewform";
-const ENTRY_NOMBRE = "entry..877086558"; // <-- aquí pegamos el real
 
+// 1) Google Maps
+const MAPS_URL =
+  "https://www.google.com/maps/search/?api=1&query=Hotel+Santa+Barbara+Puente+Nacional+Santander";
 
-/* Datos editables (si quieres cambiarlos rápido) */
+// 2) Google Form (tu link)
+const FORM_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLSe5VAzH_yyNsF51FdPsryz-qVxZHWcQFKEHL8rEtyoPLndb5g/viewform";
+// 3) IDs reales del formulario (DEBES PONERLOS BIEN)
+// ✅ Ejemplo: "entry.877086558"  (SIN DOBLE PUNTO)
+const ENTRY_NOMBRE = "entry.877086558";     // <-- CAMBIA por tu entry real
+const ENTRY_ASISTE = "entry.123456789";     // <-- CAMBIA por tu entry real (pregunta Sí/No)
+
+/* Datos editables del evento */
 const EVENTO = {
   cumple: "Sandra Patricia",
   dia: "Sábado",
@@ -18,6 +25,7 @@ const EVENTO = {
   ciudad: "Puente Nacional\nSantander",
   phoneText: "(57) 3213837355"
 };
+
 /* ========================= */
 
 function $(id){ return document.getElementById(id); }
@@ -49,59 +57,39 @@ function openModal(){
   const modal = $("modal");
   if(modal) modal.style.display = "block";
 }
+
 function closeModal(){
   const modal = $("modal");
   if(modal) modal.style.display = "none";
 }
 
-async function enviarRSVP(respuesta, nombreInvitado){
-  const status = $("status");
-  if(status) status.textContent = "Enviando...";
+function abrirFormulario({ nombre, asiste }) {
+  // Validaciones básicas para que no falle silencioso
+  if(!FORM_URL) return alert("Falta FORM_URL");
+  if(!ENTRY_NOMBRE || !ENTRY_NOMBRE.startsWith("entry.")) return alert("ENTRY_NOMBRE inválido. Debe ser entry.XXXX");
+  if(!ENTRY_ASISTE || !ENTRY_ASISTE.startsWith("entry.")) return alert("ENTRY_ASISTE inválido. Debe ser entry.XXXX");
 
-  if(!RSVP_ENDPOINT || RSVP_ENDPOINT.includes("PEGA_AQUI")){
-    if(status) status.textContent = "⚠️ Falta configurar RSVP_ENDPOINT (Apps Script).";
-    return;
+  const url = new URL(FORM_URL);
+
+  // Prefill (si no hay nombre en URL, preguntamos)
+  let nombreFinal = (nombre || "").trim();
+  if(!nombreFinal){
+    nombreFinal = (prompt("Escribe tu nombre:") || "").trim();
   }
+  if(!nombreFinal) return;
 
-  const nombreFinal = nombreInvitado || prompt("Escribe tu nombre para registrar la confirmación:") || "";
-  if(!nombreFinal.trim()){
-    if(status) status.textContent = "⚠️ El nombre es obligatorio.";
-    return;
-  }
+  // Prellenar campos
+  url.searchParams.set(ENTRY_NOMBRE, nombreFinal);
+  url.searchParams.set(ENTRY_ASISTE, asiste); // Debe coincidir EXACTO con la opción del formulario: "Sí" o "No"
 
-  const payload = {
-    nombre: nombreFinal.trim(),
-    respuesta: respuesta, // "SI" / "NO"
-    telefono: ($("telefono")?.value || "").trim(),
-    nota: ($("notaInv")?.value || "").trim(),
-    source: "web"
-  };
-
-  try{
-    const r = await fetch(RSVP_ENDPOINT, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-
-    const out = await r.json().catch(() => ({ ok:false, error:"Respuesta no JSON" }));
-
-    if(out.ok){
-      if(status) status.textContent = "✅ ¡Confirmación registrada! Gracias.";
-      setTimeout(closeModal, 1200);
-    }else{
-      if(status) status.textContent = "❌ No se pudo guardar: " + (out.error || "error");
-    }
-  }catch(err){
-    if(status) status.textContent = "❌ Error de conexión: " + String(err);
-  }
+  // En WhatsApp/ móvil es mejor redirigir así:
+  window.location.href = url.toString();
 }
 
 function main(){
-  // sparkles
   createSparkles();
 
-  // set data
+  // pintar datos si existen ids en tu HTML
   setText("cumple", EVENTO.cumple);
   setText("dia", EVENTO.dia);
   setText("numDia", EVENTO.numDia);
@@ -117,42 +105,37 @@ function main(){
     confirmInfo.innerHTML = `Confirmar asistencia al: <span class="phone">${EVENTO.phoneText}</span>`;
   }
 
-  // personalización por URL
+  // saludo personalizado
   const invitado = parseNombreInvitado();
- if(invitado){
-  if(topLine) topLine.textContent = `HOLA ${invitado.toUpperCase()}, TE INVITO A MIS`;
-  if(modalHola) modalHola.textContent = `Hola ${invitado}, ¿asistirás a la celebración?`;
-}else{
-  if(topLine) topLine.textContent = "TE INVITO A MIS";
-  if(modalHola) modalHola.textContent = "Hola, ¿asistirás a la celebración?";
-}
-const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSe5VAzH_yyNsF51FdPsryz-qVxZHWcQFKEHL8rEtyoPLndb5g/viewform";
-const ENTRY_NOMBRE = "entry.987654321"; // <-- aquí pegamos el real
-const ENTRY_ASISTE = "entry.987654321";
+  const topLine = $("topLine");
+  const modalHola = $("modalHola");
 
-url.searchParams.set(ENTRY_ASISTE, "Sí");
+  if(invitado){
+    if(topLine) topLine.textContent = `HOLA ${invitado.toUpperCase()}, TE INVITO A MIS`;
+    if(modalHola) modalHola.textContent = `Hola ${invitado}, ¿asistirás a la celebración?`;
+  } else {
+    if(topLine) topLine.textContent = "TE INVITO A MIS";
+    if(modalHola) modalHola.textContent = "Hola, ¿asistirás a la celebración?";
+  }
 
-function abrirFormulario(nombre){
-  const url = new URL(FORM_URL);
-  if(nombre) url.searchParams.set(ENTRY_NOMBRE, nombre);
-  window.location.href = url.toString(); // funciona mejor en WhatsApp que window.open
-}
-
-  // events
+  // MAPA
   const btnMapa = $("btnMapa");
-  if(btnMapa) btnMapa.addEventListener("click", () => window.location.href = MAPS_URL;
+  if(btnMapa){
+    btnMapa.addEventListener("click", () => {
+      window.location.href = MAPS_URL;
+    });
+  }
 
-  //const btnConfirmar = $("btnConfirmar");
-  //if(btnConfirmar) btnConfirmar.addEventListener("click", openModal);
-  document.getElementById("btnConfirmar").addEventListener("click", () => {
-  const p = new URLSearchParams(location.search);
-  const nombre = (p.get("nombre") || "").trim();
-  abrirFormulario(nombre);
-});
+  // Confirmar -> abre modal
+  const btnConfirmar = $("btnConfirmar");
+  if(btnConfirmar){
+    btnConfirmar.addEventListener("click", openModal);
+  }
 
-  const cerrar = $("cerrar");
-  if(cerrar) cerrar.addEventListener("click", closeModal);
+  // Cerrar modal
+  $("cerrar")?.addEventListener("click", closeModal);
 
+  // Click fuera del modal para cerrar
   const modal = $("modal");
   if(modal){
     modal.addEventListener("click", (e) => {
@@ -160,8 +143,9 @@ function abrirFormulario(nombre){
     });
   }
 
-  $("si")?.addEventListener("click", () => enviarRSVP("SI", invitado));
-  $("no")?.addEventListener("click", () => enviarRSVP("NO", invitado));
+  // Botones Sí/No -> abren Google Form prellenado
+  $("si")?.addEventListener("click", () => abrirFormulario({ nombre: invitado, asiste: "Sí" }));
+  $("no")?.addEventListener("click", () => abrirFormulario({ nombre: invitado, asiste: "No" }));
 }
 
 document.addEventListener("DOMContentLoaded", main);
