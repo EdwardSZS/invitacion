@@ -5,534 +5,190 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Invitación 50 años</title>
 
-  <style>
-    :root{
-      --gold:#c8a24a;
-      --gold2:#f3e4b3;
-      --ink:#1d1a18;
-      --soft:#f6f1ea;
-    }
-
-    body{
-      margin:0;
-      font-family: "Georgia", serif;
-      background: linear-gradient(180deg, #f7f3ee, #efe6db);
-      display:flex;
-      justify-content:center;
-      padding:18px;
-    }
-
-    .card{
-      width:min(620px, 100%);
-      background: #fff;
-      border-radius: 18px;
-      box-shadow: 0 18px 50px rgba(0,0,0,.12);
-      position:relative;
-      overflow:hidden;
-      border: 1px solid rgba(0,0,0,.06);
-      animation: pop .5s ease-out both;
-    }
-    @keyframes pop { from{ transform:translateY(8px); opacity:.0 } to{ transform:translateY(0); opacity:1 } }
-
-    /* Fondo tipo seda (suave) */
-    .silk{
-      position:absolute; inset:0;
-      background:
-        radial-gradient(900px 420px at 10% 15%, rgba(255,255,255,.85), transparent 65%),
-        radial-gradient(900px 420px at 90% 35%, rgba(255,255,255,.75), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.82));
-      opacity:.95;
-      pointer-events:none;
-    }
-    .silk:after{
-      content:"";
-      position:absolute; inset:-20%;
-      background:
-        repeating-linear-gradient(125deg, rgba(0,0,0,.028) 0 2px, transparent 2px 18px);
-      transform: rotate(-8deg);
-      opacity:.35;
-    }
-
-    /* Flores en esquinas (SVG embebido) */
-    .corner{
-      position:absolute;
-      width:170px; height:170px;
-      pointer-events:none;
-      opacity:.98;
-    }
-    .tl{ left:-8px; top:-8px; }
-    .tr{ right:-8px; top:-8px; transform: scaleX(-1); }
-    .bl{ left:-8px; bottom:-8px; transform: scaleY(-1); }
-    .br{ right:-8px; bottom:-8px; transform: scale(-1); }
-
-    .content{
-      position:relative;
-      padding:34px 26px 26px;
-      text-align:center;
-      color:var(--ink);
-    }
-
-    .smallcap{
-      font-family: "Times New Roman", serif;
-      letter-spacing:.08em;
-      font-size:15px;
-      margin-top:18px;
-    }
-
-    /* 50 dorado con brillo */
-    .fifty{
-      font-size:92px;
-      line-height:0.95;
-      margin:10px 0 0;
-      font-weight:800;
-      background: linear-gradient(90deg, var(--gold), var(--gold2), var(--gold));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-      position:relative;
-      display:inline-block;
-    }
-    .fifty:after{
-      content:"";
-      position:absolute;
-      inset:-10px;
-      background: linear-gradient(110deg, transparent 0 42%, rgba(255,255,255,.75) 50%, transparent 58% 100%);
-      transform: translateX(-140%);
-      animation: shimmer 3.2s ease-in-out infinite;
-      mix-blend-mode: screen;
-      pointer-events:none;
-    }
-    @keyframes shimmer{
-      0%{ transform: translateX(-140%) }
-      45%{ transform: translateX(140%) }
-      100%{ transform: translateX(140%) }
-    }
-
-    /* "años" cursiva */
-    .anos{
-      font-family: "Georgia", serif;
-      font-style: italic;
-      font-size:54px;
-      margin-top:-18px;
-      color:#161412;
-    }
-
-    .name{
-      font-size:56px;
-      margin:6px 0 12px;
-      color: var(--gold);
-      font-family: "Georgia", serif;
-      font-style: italic;
-    }
-
-    .line{
-      height:1px;
-      background: rgba(200,162,74,.45);
-      margin:14px auto;
-      width:min(420px, 100%);
-    }
-
-    .midrow{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      gap:18px;
-      margin:8px 0 12px;
-      flex-wrap:wrap;
-      font-family: "Times New Roman", serif;
-    }
-    .pill{
-      padding:10px 16px;
-      border-radius:999px;
-      background: #fff;
-      border:1px solid rgba(200,162,74,.38);
-      font-size:18px;
-      min-width:120px;
-    }
-
-    .dateCircle{
-      width:86px; height:86px;
-      border-radius:50%;
-      border:1px solid rgba(200,162,74,.55);
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      font-family: "Times New Roman", serif;
-    }
-    .dateCircle b{ font-size:28px; line-height:1; }
-    .dateCircle span{ font-size:14px; letter-spacing:.04em; margin-top:2px; }
-
-    .place{
-      margin-top:16px;
-      font-family: "Times New Roman", serif;
-    }
-    .place .hotel{
-      color: var(--gold);
-      font-weight:700;
-      letter-spacing:.04em;
-    }
-    .place .city{
-      margin-top:4px;
-      color:#222;
-    }
-
-    .actions{
-      display:grid;
-      gap:10px;
-      margin-top:18px;
-    }
-    .btn{
-      border:0;
-      border-radius:14px;
-      padding:13px 14px;
-      font-weight:800;
-      cursor:pointer;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
-    }
-    .btn.map{
-      background: var(--gold);
-      color:#1a140d;
-    }
-    .btn.rsvp{
-      background:#1f2a44;
-      color:#fff;
-    }
-
-    .note{
-      margin-top:10px;
-      font-size:12.8px;
-      color:#444;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
-    }
-
-    /* Modal RSVP */
-    .modal{
-      display:none;
-      position:fixed; inset:0;
-      background:rgba(0,0,0,.55);
-      z-index:9999;
-      padding:16px;
-    }
-    .modalBox{
-      width:min(520px, 100%);
-      margin:10vh auto;
-      background:#fff;
-      border-radius:18px;
-      overflow:hidden;
-    }
-    .modalTop{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:10px 12px;
-      border-bottom:1px solid #eee;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
-    }
-    .x{ border:0; background:transparent; font-size:22px; cursor:pointer; }
-    .modalBody{
-      padding:14px 12px 16px;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
-    }
-    .modalBody p{ margin:0 0 10px; color:#333; }
-    .grid2{ display:grid; gap:10px; }
-    .choice{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-    }
-    .cbtn{
-      padding:12px 10px;
-      border-radius:14px;
-      border:1px solid #ddd;
-      background:#faf7f1;
-      font-weight:800;
-      cursor:pointer;
-    }
-    .cbtn.y{ background:rgba(200,162,74,.22); border-color:rgba(200,162,74,.45); }
-    .field{
-      padding:12px;
-      border-radius:14px;
-      border:1px solid #ddd;
-      background:#fff;
-      outline:none;
-    }
-    .status{
-      font-size:13px;
-      color:#333;
-      min-height:18px;
-    }
-
-    /* Responsive */
-    @media (max-width:420px){
-      .fifty{ font-size:78px; }
-      .anos{ font-size:44px; }
-      .name{ font-size:44px; }
-      .corner{ width:140px; height:140px; }
-    }
-  </style>
+  <link rel="stylesheet" href="./invitacion.css" />
 </head>
 
 <body>
-  <div class="card">
-    <div class="silk"></div>
+  <main class="page">
+    <section class="card" aria-label="Invitación 50 años">
+      <!-- fondo seda -->
+      <div class="silk" aria-hidden="true"></div>
 
-    <!-- Floral corners (simple SVG) -->
-    <svg class="corner tl" viewBox="0 0 200 200" aria-hidden="true">
-      <g>
-        <path d="M30 60 C40 35,70 35,75 60 C78 80,55 92,44 82 C33 72,28 72,30 60Z" fill="#b0262a"/>
-        <path d="M72 58 C90 38,118 44,112 70 C107 92,82 94,74 82 C65 68,64 68,72 58Z" fill="#e2463e"/>
-        <circle cx="70" cy="70" r="10" fill="#f3d27a"/>
-        <path d="M20 125 C40 98,72 106,70 134 C68 160,40 168,24 150 C10 135,12 135,20 125Z" fill="#d84a3a"/>
-        <circle cx="40" cy="136" r="8" fill="#f3d27a"/>
-        <path d="M110 35 C135 20,165 35,150 60 C136 83,108 74,106 56 C104 44,102 44,110 35Z" fill="#f08a2a"/>
-        <path d="M88 28 C95 14,114 14,118 28 C121 40,110 48,102 44 C94 40,85 40,88 28Z" fill="#e2463e"/>
-        <path d="M58 104 C70 110,82 118,90 132" stroke="#4a7a47" stroke-width="6" fill="none" stroke-linecap="round"/>
-        <path d="M96 98 C110 106,124 120,132 136" stroke="#4a7a47" stroke-width="6" fill="none" stroke-linecap="round"/>
-        <ellipse cx="92" cy="118" rx="10" ry="18" fill="#5f9c57"/>
-        <ellipse cx="120" cy="124" rx="10" ry="18" fill="#5f9c57"/>
-      </g>
-    </svg>
+      <!-- brillantinas -->
+      <div class="sparkles" id="sparkles" aria-hidden="true"></div>
 
-    <svg class="corner tr" viewBox="0 0 200 200" aria-hidden="true">
-      <use href="#"></use>
-      <g>
-        <path d="M30 60 C40 35,70 35,75 60 C78 80,55 92,44 82 C33 72,28 72,30 60Z" fill="#b0262a"/>
-        <path d="M72 58 C90 38,118 44,112 70 C107 92,82 94,74 82 C65 68,64 68,72 58Z" fill="#e2463e"/>
-        <circle cx="70" cy="70" r="10" fill="#f3d27a"/>
-        <path d="M20 125 C40 98,72 106,70 134 C68 160,40 168,24 150 C10 135,12 135,20 125Z" fill="#d84a3a"/>
-        <circle cx="40" cy="136" r="8" fill="#f3d27a"/>
-        <path d="M110 35 C135 20,165 35,150 60 C136 83,108 74,106 56 C104 44,102 44,110 35Z" fill="#f08a2a"/>
-        <path d="M88 28 C95 14,114 14,118 28 C121 40,110 48,102 44 C94 40,85 40,88 28Z" fill="#e2463e"/>
-        <path d="M58 104 C70 110,82 118,90 132" stroke="#4a7a47" stroke-width="6" fill="none" stroke-linecap="round"/>
-        <path d="M96 98 C110 106,124 120,132 136" stroke="#4a7a47" stroke-width="6" fill="none" stroke-linecap="round"/>
-        <ellipse cx="92" cy="118" rx="10" ry="18" fill="#5f9c57"/>
-        <ellipse cx="120" cy="124" rx="10" ry="18" fill="#5f9c57"/>
-      </g>
-    </svg>
-
-    <svg class="corner bl" viewBox="0 0 200 200" aria-hidden="true">
-      <g>
-        <path d="M30 60 C40 35,70 35,75 60 C78 80,55 92,44 82 C33 72,28 72,30 60Z" fill="#b0262a"/>
-        <path d="M72 58 C90 38,118 44,112 70 C107 92,82 94,74 82 C65 68,64 68,72 58Z" fill="#e2463e"/>
-        <circle cx="70" cy="70" r="10" fill="#f3d27a"/>
-        <path d="M20 125 C40 98,72 106,70 134 C68 160,40 168,24 150 C10 135,12 135,20 125Z" fill="#d84a3a"/>
-        <circle cx="40" cy="136" r="8" fill="#f3d27a"/>
-        <path d="M110 35 C135 20,165 35,150 60 C136 83,108 74,106 56 C104 44,102 44,110 35Z" fill="#f08a2a"/>
-        <path d="M88 28 C95 14,114 14,118 28 C121 40,110 48,102 44 C94 40,85 40,88 28Z" fill="#e2463e"/>
-        <path d="M58 104 C70 110,82 118,90 132" stroke="#4a7a47" stroke-width="6" fill="none" stroke-linecap="round"/>
-        <path d="M96 98 C110 106,124 120,132 136" stroke="#4a7a47" stroke-width="6" fill="none" stroke-linecap="round"/>
-        <ellipse cx="92" cy="118" rx="10" ry="18" fill="#5f9c57"/>
-        <ellipse cx="120" cy="124" rx="10" ry="18" fill="#5f9c57"/>
-      </g>
-    </svg>
-
-    <svg class="corner br" viewBox="0 0 200 200" aria-hidden="true">
-      <g>
-        <path d="M30 60 C40 35,70 35,75 60 C78 80,55 92,44 82 C33 72,28 72,30 60Z" fill="#b0262a"/>
-        <path d="M72 58 C90 38,118 44,112 70 C107 92,82 94,74 82 C65 68,64 68,72 58Z" fill="#e2463e"/>
-        <circle cx="70" cy="70" r="10" fill="#f3d27a"/>
-        <path d="M20 125 C40 98,72 106,70 134 C68 160,40 168,24 150 C10 135,12 135,20 125Z" fill="#d84a3a"/>
-        <circle cx="40" cy="136" r="8" fill="#f3d27a"/>
-        <path d="M110 35 C135 20,165 35,150 60 C136 83,108 74,106 56 C104 44,102 44,110 35Z" fill="#f08a2a"/>
-        <path d="M88 28 C95 14,114 14,118 28 C121 40,110 48,102 44 C94 40,85 40,88 28Z" fill="#e2463e"/>
-        <path d="M58 104 C70 110,82 118,90 132" stroke="#4a7a47" stroke-width="6" fill="none" stroke-linecap="round"/>
-        <path d="M96 98 C110 106,124 120,132 136" stroke="#4a7a47" stroke-width="6" fill="none" stroke-linecap="round"/>
-        <ellipse cx="92" cy="118" rx="10" ry="18" fill="#5f9c57"/>
-        <ellipse cx="120" cy="124" rx="10" ry="18" fill="#5f9c57"/>
-      </g>
-    </svg>
-
-    <div class="content">
-      <div class="smallcap" id="saludo">TE INVITO A MIS</div>
-
-      <div class="fifty">50</div>
-      <div class="anos">años</div>
-
-      <div class="name" id="nombreCumple">Sandra Patricia</div>
-
-      <div class="line"></div>
-
-      <div class="midrow">
-        <div class="pill" id="dia">Sábado</div>
-        <div class="dateCircle">
-          <b id="numDia">21</b>
-          <span id="mes">FEBRERO</span>
+      <!-- FLORES ESQUINAS (arriba) -->
+      <div class="floral top" aria-hidden="true">
+        <div class="floral-left">
+          <!-- SVG floral -->
+          <svg viewBox="0 0 240 180">
+            <g>
+              <path d="M38 78 C20 52,30 22,62 20 C98 18,110 58,88 78 C70 96,52 96,38 78Z" fill="#b21f24"/>
+              <path d="M78 70 C82 42,112 34,134 52 C156 70,144 98,118 96 C94 94,76 92,78 70Z" fill="#de3a33"/>
+              <circle cx="88" cy="70" r="10" fill="#f3d27a"/>
+              <path d="M18 140 C34 112,68 110,78 136 C90 166,56 184,30 166 C10 152,10 152,18 140Z" fill="#e36a42"/>
+              <circle cx="42" cy="148" r="8" fill="#f3d27a"/>
+              <path d="M122 26 C154 12,192 30,176 60 C162 88,128 76,124 56 C120 42,112 34,122 26Z" fill="#f08a2a"/>
+              <path d="M96 28 C102 10,126 10,132 28 C138 48,118 54,110 50 C100 44,92 44,96 28Z" fill="#de3a33"/>
+              <!-- hojas -->
+              <path d="M128 94 C150 100,170 118,182 140" stroke="#4f8f55" stroke-width="6" fill="none" stroke-linecap="round"/>
+              <ellipse cx="156" cy="112" rx="11" ry="18" fill="#6fbf73"/>
+              <ellipse cx="176" cy="128" rx="11" ry="18" fill="#5fae65"/>
+              <!-- florecitas -->
+              <circle cx="210" cy="70" r="5" fill="#edd9a8"/>
+              <circle cx="220" cy="82" r="4" fill="#edd9a8"/>
+              <circle cx="200" cy="86" r="4" fill="#edd9a8"/>
+            </g>
+          </svg>
         </div>
-        <div class="pill" id="hora">2:00 pm</div>
+
+        <div class="floral-right">
+          <!-- espejo -->
+          <svg viewBox="0 0 240 180" class="mirror-x">
+            <g>
+              <path d="M38 78 C20 52,30 22,62 20 C98 18,110 58,88 78 C70 96,52 96,38 78Z" fill="#b21f24"/>
+              <path d="M78 70 C82 42,112 34,134 52 C156 70,144 98,118 96 C94 94,76 92,78 70Z" fill="#de3a33"/>
+              <circle cx="88" cy="70" r="10" fill="#f3d27a"/>
+              <path d="M18 140 C34 112,68 110,78 136 C90 166,56 184,30 166 C10 152,10 152,18 140Z" fill="#e36a42"/>
+              <circle cx="42" cy="148" r="8" fill="#f3d27a"/>
+              <path d="M122 26 C154 12,192 30,176 60 C162 88,128 76,124 56 C120 42,112 34,122 26Z" fill="#f08a2a"/>
+              <path d="M96 28 C102 10,126 10,132 28 C138 48,118 54,110 50 C100 44,92 44,96 28Z" fill="#de3a33"/>
+              <path d="M128 94 C150 100,170 118,182 140" stroke="#4f8f55" stroke-width="6" fill="none" stroke-linecap="round"/>
+              <ellipse cx="156" cy="112" rx="11" ry="18" fill="#6fbf73"/>
+              <ellipse cx="176" cy="128" rx="11" ry="18" fill="#5fae65"/>
+              <circle cx="210" cy="70" r="5" fill="#edd9a8"/>
+              <circle cx="220" cy="82" r="4" fill="#edd9a8"/>
+              <circle cx="200" cy="86" r="4" fill="#edd9a8"/>
+            </g>
+          </svg>
+        </div>
       </div>
 
-      <div class="place">
-        <div class="hotel" id="hotel">HOTEL SANTA BARBARA</div>
-        <div class="city" id="ciudad">Puente Nacional, Santander</div>
+      <!-- FLORES ESQUINAS (abajo) -->
+      <div class="floral bottom" aria-hidden="true">
+        <div class="floral-left">
+          <svg viewBox="0 0 240 180" class="mirror-y">
+            <g>
+              <path d="M38 78 C20 52,30 22,62 20 C98 18,110 58,88 78 C70 96,52 96,38 78Z" fill="#b21f24"/>
+              <path d="M78 70 C82 42,112 34,134 52 C156 70,144 98,118 96 C94 94,76 92,78 70Z" fill="#de3a33"/>
+              <circle cx="88" cy="70" r="10" fill="#f3d27a"/>
+              <path d="M18 140 C34 112,68 110,78 136 C90 166,56 184,30 166 C10 152,10 152,18 140Z" fill="#e36a42"/>
+              <circle cx="42" cy="148" r="8" fill="#f3d27a"/>
+              <path d="M122 26 C154 12,192 30,176 60 C162 88,128 76,124 56 C120 42,112 34,122 26Z" fill="#f08a2a"/>
+              <path d="M96 28 C102 10,126 10,132 28 C138 48,118 54,110 50 C100 44,92 44,96 28Z" fill="#de3a33"/>
+              <path d="M128 94 C150 100,170 118,182 140" stroke="#4f8f55" stroke-width="6" fill="none" stroke-linecap="round"/>
+              <ellipse cx="156" cy="112" rx="11" ry="18" fill="#6fbf73"/>
+              <ellipse cx="176" cy="128" rx="11" ry="18" fill="#5fae65"/>
+              <circle cx="210" cy="70" r="5" fill="#edd9a8"/>
+              <circle cx="220" cy="82" r="4" fill="#edd9a8"/>
+              <circle cx="200" cy="86" r="4" fill="#edd9a8"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="floral-right">
+          <svg viewBox="0 0 240 180" class="mirror-xy">
+            <g>
+              <path d="M38 78 C20 52,30 22,62 20 C98 18,110 58,88 78 C70 96,52 96,38 78Z" fill="#b21f24"/>
+              <path d="M78 70 C82 42,112 34,134 52 C156 70,144 98,118 96 C94 94,76 92,78 70Z" fill="#de3a33"/>
+              <circle cx="88" cy="70" r="10" fill="#f3d27a"/>
+              <path d="M18 140 C34 112,68 110,78 136 C90 166,56 184,30 166 C10 152,10 152,18 140Z" fill="#e36a42"/>
+              <circle cx="42" cy="148" r="8" fill="#f3d27a"/>
+              <path d="M122 26 C154 12,192 30,176 60 C162 88,128 76,124 56 C120 42,112 34,122 26Z" fill="#f08a2a"/>
+              <path d="M96 28 C102 10,126 10,132 28 C138 48,118 54,110 50 C100 44,92 44,96 28Z" fill="#de3a33"/>
+              <path d="M128 94 C150 100,170 118,182 140" stroke="#4f8f55" stroke-width="6" fill="none" stroke-linecap="round"/>
+              <ellipse cx="156" cy="112" rx="11" ry="18" fill="#6fbf73"/>
+              <ellipse cx="176" cy="128" rx="11" ry="18" fill="#5fae65"/>
+              <circle cx="210" cy="70" r="5" fill="#edd9a8"/>
+              <circle cx="220" cy="82" r="4" fill="#edd9a8"/>
+              <circle cx="200" cy="86" r="4" fill="#edd9a8"/>
+            </g>
+          </svg>
+        </div>
       </div>
 
-      <div class="actions">
-        <button class="btn map" id="btnMapa">🗺️ Ver ruta</button>
-        <button class="btn rsvp" id="btnConfirmar">✅ Confirmar asistencia</button>
-      </div>
+      <!-- CONTENIDO -->
+      <div class="content">
+        <div class="title-top" id="topLine">TE INVITO A MIS</div>
 
-      <div class="note" id="nota">
-        Confirmar asistencia (Sí / No). Tu respuesta se registra automáticamente.
-      </div>
-    </div>
-  </div>
+        <div class="headline">
+          <div class="gold50" aria-hidden="true">50</div>
+          <div class="anos">años</div>
+        </div>
 
-  <!-- Modal -->
-  <div class="modal" id="modal">
-    <div class="modalBox">
+        <div class="name" id="cumple">Sandra Patricia</div>
+
+        <div class="invite-text">
+          TE INVITO A ACOMPAÑARME EN LA CELEBRACIÓN DE ESTA NUEVA VUELTA AL SOL
+        </div>
+
+        <!-- Fila día/fecha/hora estilo imagen -->
+        <div class="date-row">
+          <div class="date-side">
+            <span class="dot"></span>
+            <span class="line"></span>
+            <span class="label" id="dia">Sábado</span>
+            <span class="line"></span>
+            <span class="dot"></span>
+          </div>
+
+          <div class="date-center">
+            <div class="circle">
+              <div class="day" id="numDia">21</div>
+              <div class="month" id="mes">FEBRERO</div>
+            </div>
+          </div>
+
+          <div class="date-side">
+            <span class="dot"></span>
+            <span class="line"></span>
+            <span class="label" id="hora">2:00 pm</span>
+            <span class="line"></span>
+            <span class="dot"></span>
+          </div>
+        </div>
+
+        <div class="place">
+          <div class="hotel" id="hotel">HOTEL SANTA BARBARA</div>
+          <div class="city" id="ciudad">Puente Nacional<br/>Santander</div>
+          <div class="confirm-info" id="confirmInfo">
+            Confirmar asistencia al: <span class="phone">(57) 3213837355</span>
+          </div>
+        </div>
+
+        <!-- Botones pequeños -->
+        <div class="actions">
+          <button class="btn btn-map" id="btnMapa">🗺️ Ver ruta</button>
+          <button class="btn btn-rsvp" id="btnConfirmar">✅ Confirmar asistencia</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL RSVP -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modalBox" role="dialog" aria-modal="true" aria-label="Confirmación">
       <div class="modalTop">
-        <b>Confirmación</b>
-        <button class="x" id="cerrar">✕</button>
+        <span>Confirmación</span>
+        <button class="close" id="cerrar" aria-label="Cerrar">✕</button>
       </div>
+
       <div class="modalBody">
-        <p><b id="modalHola">Hola</b>, ¿asistirás a la celebración?</p>
+        <p id="modalHola" class="modalText">Hola, ¿asistirás a la celebración?</p>
 
         <div class="choice">
-          <button class="cbtn y" id="si">✅ Sí</button>
+          <button class="cbtn yes" id="si">✅ Sí</button>
           <button class="cbtn" id="no">❌ No</button>
         </div>
 
-        <div class="grid2" style="margin-top:10px;">
-          <input class="field" id="telefono" placeholder="Teléfono (opcional)">
-          <input class="field" id="notaInv" placeholder="Nota (opcional: cuántos van, etc.)">
-          <div class="status" id="status"></div>
-        </div>
+        <input class="field" id="telefono" placeholder="Teléfono (opcional)" />
+        <input class="field" id="notaInv" placeholder="Nota (opcional: cuántos van, etc.)" />
+
+        <div class="status" id="status"></div>
       </div>
     </div>
   </div>
 
-  <script>
-    // =========================
-    // EDITA AQUÍ (rápido)
-    // =========================
-    const ENDPOINT = "PEGA_AQUI_TU_URL_DE_APPS_SCRIPT"; // https://script.google.com/macros/s/XXXX/exec
-
-    const MAPS_URL = "https://www.google.com/maps/dir/?api=1&destination=Hotel+Santa+Barbara+Puente+Nacional+Santander";
-
-    const EVENTO = {
-      cumple: "Sandra Patricia",
-      dia: "Sábado",
-      numDia: "21",
-      mes: "FEBRERO",
-      hora: "2:00 pm",
-      hotel: "HOTEL SANTA BARBARA",
-      ciudad: "Puente Nacional, Santander"
-    };
-    // =========================
-
-    // Cargar datos visuales
-    document.getElementById("nombreCumple").textContent = EVENTO.cumple;
-    document.getElementById("dia").textContent = EVENTO.dia;
-    document.getElementById("numDia").textContent = EVENTO.numDia;
-    document.getElementById("mes").textContent = EVENTO.mes;
-    document.getElementById("hora").textContent = EVENTO.hora;
-    document.getElementById("hotel").textContent = EVENTO.hotel;
-    document.getElementById("ciudad").textContent = EVENTO.ciudad;
-
-    // Nombre del invitado desde la URL ?nombre=
-    const params = new URLSearchParams(location.search);
-    const invitado = (params.get("nombre") || "").trim();
-    document.getElementById("saludo").textContent = invitado ? `HOLA, ${invitado.toUpperCase()} — TE INVITO A MIS` : "TE INVITO A MIS";
-    document.getElementById("modalHola").textContent = invitado ? `Hola ${invitado}` : "Hola";
-
-    // Botones
-    document.getElementById("btnMapa").addEventListener("click", () => window.open(MAPS_URL, "_blank"));
-
-    const modal = document.getElementById("modal");
-    const status = document.getElementById("status");
-
-    document.getElementById("btnConfirmar").addEventListener("click", () => {
-      status.textContent = "";
-      modal.style.display = "block";
-    });
-    document.getElementById("cerrar").addEventListener("click", () => modal.style.display = "none");
-    modal.addEventListener("click", (e) => { if(e.target === modal) modal.style.display = "none"; });
-
-    async function enviar(respuesta){
-      if(!ENDPOINT || ENDPOINT.includes("PEGA_AQUI")){
-        status.textContent = "⚠️ Falta pegar la URL del Apps Script (ENDPOINT).";
-        return;
-      }
-      const nombreFinal = invitado || prompt("Escribe tu nombre para registrar la confirmación:") || "";
-      if(!nombreFinal.trim()){
-        status.textContent = "⚠️ El nombre es obligatorio.";
-        return;
-      }
-
-      status.textContent = "Guardando...";
-      const payload = {
-        nombre: nombreFinal.trim(),
-        respuesta: respuesta, // "SI" o "NO"
-        telefono: document.getElementById("telefono").value.trim(),
-        nota: document.getElementById("notaInv").value.trim(),
-        source: "whatsapp"
-      };
-
-      try{
-        const r = await fetch(ENDPOINT, {
-          method:"POST",
-          headers:{ "Content-Type":"application/json" },
-          body: JSON.stringify(payload)
-        });
-        const out = await r.json();
-        if(out.ok){
-          status.textContent = "✅ Listo. Quedó registrada tu respuesta. ¡Gracias!";
-          setTimeout(()=> modal.style.display="none", 1200);
-        }else{
-          status.textContent = "❌ No se pudo guardar: " + (out.error || "error desconocido");
-        }
-      }catch(err){
-        status.textContent = "❌ Error de conexión: " + err;
-      }
-    }
-
-    document.getElementById("si").addEventListener("click", () => enviar("SI"));
-    document.getElementById("no").addEventListener("click", () => enviar("NO"));
-  </script>
-  <!-- OVERLAY MUSICA SPOTIFY -->
-<div id="musicOverlay" style="
-  position:fixed; inset:0; z-index:99999;
-  background:rgba(0,0,0,.72);
-  display:flex; align-items:center; justify-content:center;
-  padding:18px;
-">
-  <div style="
-    width:min(520px,100%);
-    background:#fff;
-    border-radius:18px;
-    padding:16px;
-    text-align:center;
-    font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial;
-  ">
-    <div style="font-weight:900; font-size:18px; margin-bottom:6px;">
-      🎵 Música de fondo
-    </div>
-    <div style="color:#333; margin-bottom:12px; line-height:1.35;">
-      Toca para abrir Spotify y reproducir la canción.
-      <br><span style="color:#777; font-size:13px;">(Recomendado para WhatsApp)</span>
-    </div>
-
-    <a id="openSpotify" href="#" target="_blank" rel="noopener"
-       style="
-        display:block; text-decoration:none;
-        background:#1DB954; color:#fff;
-        padding:12px 14px; border-radius:14px;
-        font-weight:900;
-        margin-bottom:10px;
-       ">
-      ▶️ Reproducir en Spotify
-    </a>
-
-    <button id="skipMusic" style="
-      border:1px solid #ddd; background:#f6f6f6; color:#222;
-      padding:10px 12px; border-radius:14px; font-weight:800;
-      cursor:pointer;
-    ">
-      Continuar sin música
-    </button>
-  </div>
-</div>
-
+  <script src="./app.js"></script>
 </body>
 </html>
