@@ -20,7 +20,7 @@ const EVENTO = {
   dia: "Sábado",
   numDia: "21",
   mes: "FEBRERO 2026",
-  hora: "2:00 pm.",
+  hora: "2:00 P.M.",
   hotel: "HOTEL SANTA BARBARA",
   ciudad: "Puente Nacional\nSantander",
   phoneText: "(57) 3213837355"
