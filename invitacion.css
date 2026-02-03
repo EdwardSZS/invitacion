@@ -440,7 +440,7 @@ body{
 /* =========================
    FIX URGENTE: móvil sin recorte
 ========================= */
-@media (max-width: 520px){
+@media (max-width: 480px){
 
   /* La página no centra vertical: que arranque arriba */
   .page{
