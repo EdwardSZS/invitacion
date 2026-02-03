@@ -145,7 +145,7 @@ body{
 .title-top{
   font-family: "Times New Roman", serif;
   letter-spacing:.04em;
-  font-size:18px;
+  font-size:16px;
   margin-top:18px;
 }
 
@@ -156,7 +156,7 @@ body{
 }
 
 .gold50{
-  font-size:118px;
+  font-size:105px;
   line-height:0.95;
   top: -40px;
   font-weight:900;
@@ -196,7 +196,7 @@ body{
   left:50%;
   transform:translateX(-50%);
   bottom: -6px;   /* 👈 bájalo un poco para que no choque la ñ */
-  font-size:64px;
+  font-size:54px;
   font-style:italic;
   color:#111;
   line-height:1;
@@ -224,14 +224,14 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:8px;
+  gap:2px;
   margin-top:8px;
 }
 
 .date-side{
   display:flex;
   align-items:center;
-  gap:5px;
+  gap:2px;
   min-width:170px;
   justify-content:center;
 }
