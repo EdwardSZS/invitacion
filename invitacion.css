@@ -157,7 +157,7 @@ body{
 }
 
 .gold50{
-  font-size:80px;
+  font-size:70px;
   line-height:0.95;
   top: -30px;
   font-weight:900;
@@ -206,7 +206,7 @@ body{
 
 
 .name{
-  font-size:56px;
+  font-size:50px;
   color:var(--gold);
   font-style:italic;
   margin-top:-10px;
@@ -466,7 +466,25 @@ body{
   /* Evita que una regla vieja dañe “años” en móvil */
   .anos{
     margin-top: 0 !important;
+    position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  bottom: -6px;   /* 👈 bájalo un poco para que no choque la ñ */
+  font-size:25px;
+  font-style:italic;
+  color:#111;
+  line-height:1;
+  pointer-events:none;
   }
+  
+
+
+.name{
+  font-size:45px;
+  color:var(--gold);
+  font-style:italic;
+  margin-top:-10px;
+}
 
   /* Flores más pequeñas para que no tapen */
   .floral{ height: 120px !important; }

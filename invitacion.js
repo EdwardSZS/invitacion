@@ -112,10 +112,10 @@ function main(){
   const modalHola = $("modalHola");
 
   if(invitado){
-    if(topLine) topLine.textContent = `HOLA ${invitado.toUpperCase()}, TE INVITO A MIS`;
+    if(topLine) topLine.textContent = `${invitado.toUpperCase()}, queremos invitarle a compartir un almuerzo con motivo de celebrar los:`;
     if(modalHola) modalHola.textContent = `Hola ${invitado}, ¿asistirás a la celebración?`;
   } else {
-    if(topLine) topLine.textContent = "TE INVITO A MIS";
+    if(topLine) topLine.textContent = "queremos invitarle a compartir un almuerzo con motivo de celebrar los:  ";
     if(modalHola) modalHola.textContent = "Hola, ¿asistirás a la celebración?";
   }
 
