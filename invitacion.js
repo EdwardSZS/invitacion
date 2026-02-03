@@ -21,8 +21,9 @@ const EVENTO = {
   numDia: "21",
   mes: "FEBRERO 2026",
   hora: "2:00 P.M.",
+  invita: "INVITAN: STIVEN & GUILLERMO",
   hotel: "HOTEL SANTA BARBARA",
-  ciudad: "Puente Nacional\nSantander",
+  ciudad: "Puente Nacional\t-Santander",
   phoneText: "(57) 3213837355"
 };
 
@@ -95,6 +96,7 @@ function main(){
   setText("numDia", EVENTO.numDia);
   setText("mes", EVENTO.mes);
   setText("hora", EVENTO.hora);
+  setText("invita", EVENTO.invita);
   setText("hotel", EVENTO.hotel);
 
   const ciudadEl = $("ciudad");
@@ -102,7 +104,7 @@ function main(){
 
   const confirmInfo = $("confirmInfo");
   if(confirmInfo){
-    confirmInfo.innerHTML = `Confirmar asistencia al: <span class="phone">${EVENTO.phoneText}</span>`;
+    confirmInfo.innerHTML = ` Favor confirmar asistencia al: <span class="phone">${EVENTO.phoneText}</span>`;
   }
 
   // saludo personalizado
