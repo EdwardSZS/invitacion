@@ -145,8 +145,8 @@ body{
 .title-top{
   font-family: "Times New Roman", serif;
   letter-spacing:.04em;
-  font-size:16px;
-  margin-top:10px;
+  font-size:15px;
+  margin-top:5px;
 }
 
 .headline{
@@ -157,7 +157,7 @@ body{
 }
 
 .gold50{
-  font-size:90px;
+  font-size:80px;
   line-height:0.95;
   top: -30px;
   font-weight:900;
