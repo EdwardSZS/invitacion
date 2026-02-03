@@ -152,14 +152,14 @@ body{
 .headline{
   position:relative;
   margin-top:2px;
-  margin-top: auto;
+  margin-bottom: auto;
   display:inline-block;
 }
 
 .gold50{
-  font-size:105px;
+  font-size:90px;
   line-height:0.95;
-  top: -40px;
+  top: -30px;
   font-weight:900;
   bottom: auto;
   margin-top: 2px;
