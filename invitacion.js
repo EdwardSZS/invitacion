@@ -16,7 +16,7 @@ const ENTRY_ASISTE = "entry.123456789";     // <-- CAMBIA por tu entry real (pre
 
 /* Datos editables del evento */
 const EVENTO = {
-  cumple: "Sandra Patricia",
+  cumple: "Patricia",
   dia: "Sábado",
   numDia: "21",
   mes: "FEBRERO",

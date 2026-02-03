@@ -462,7 +462,21 @@ body{
     justify-content: flex-start !important;
     padding: 92px 16px 92px !important; /* espacio para flores arriba/abajo */
   }
-
+  .gold50{
+  font-size:70px;
+  line-height:0.95;
+  top: -20px;
+  font-weight:900;
+  bottom: auto;
+  margin-top: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--gold2), var(--gold), var(--gold3), var(--gold));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  display:inline-block;
+  position:relative;
+  filter: drop-shadow(0 2px 0 rgba(0,0,0,.05));
+}
   /* Evita que una regla vieja dañe “años” en móvil */
   .anos{
     margin-top: 0 !important;
