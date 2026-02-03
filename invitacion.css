@@ -434,11 +434,51 @@ body{
 }
 
 /* Responsive */
-@media (max-width:420px){
-  .content{ padding: 46px 18px 40px; }
-  .gold50{ font-size:98px; }
-  .anos{ font-size:56px; margin-top:-40px; }
-  .name{ font-size:46px; }
-  .date-side{ min-width:140px; }
-  .date-side .line{ width:44px; }
+/* =========================
+   FIX: no se corte en móvil
+========================= */
+/* =========================
+   FIX URGENTE: móvil sin recorte
+========================= */
+@media (max-width: 520px){
+
+  /* La página no centra vertical: que arranque arriba */
+  .page{
+    align-items: flex-start !important;
+    padding: 10px !important;
+  }
+
+  /* La tarjeta deja de tener alto fijo (aspect-ratio) */
+  .card{
+    aspect-ratio: auto !important;
+    height: auto !important;
+    overflow: hidden; /* puedes dejarlo para que no se salgan flores */
+  }
+
+  /* El contenido NO debe forzar height:100% ni centrarse */
+  .content{
+    height: auto !important;
+    justify-content: flex-start !important;
+    padding: 92px 16px 92px !important; /* espacio para flores arriba/abajo */
+  }
+
+  /* Evita que una regla vieja dañe “años” en móvil */
+  .anos{
+    margin-top: 0 !important;
+  }
+
+  /* Flores más pequeñas para que no tapen */
+  .floral{ height: 120px !important; }
+  .floral-left, .floral-right{
+    transform: scale(.78);
+    transform-origin: top left;
+  }
+  .floral-right{ transform-origin: top right; }
+  .floral-left{ left:-40px !important; top:-26px !important; }
+  .floral-right{ right:-40px !important; top:-26px !important; }
+  .floral.bottom .floral-left,
+  .floral.bottom .floral-right{
+    bottom:-34px !important;
+  }
 }
+
